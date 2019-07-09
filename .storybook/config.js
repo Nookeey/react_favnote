@@ -1,5 +1,6 @@
-import { configure } from '@storybook/react';
-import { addDecorator } from '@storybook/react/dist/client/preview';
+import React from 'react';
+import { configure, addDecorator } from '@storybook/react';
+import { ThemeProvider } from 'styled-components';
 import { theme } from '../src/theme/mainTheme';
 
 function loadStories() {
