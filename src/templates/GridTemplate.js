@@ -1,10 +1,10 @@
 import React from 'react';
-import PropType from 'prop-types';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import UserPageTemplate from './UserPageTemplate';
-import Input from '../components/atoms/Input/Input';
-import Heading from '../components/atoms/Heading/Heading';
-import Paragraph from '../components/atoms/Paragraph/Paragraph';
+import UserPageTemplate from 'templates/UserPageTemplate';
+import Input from 'components/atoms/Input/Input';
+import Heading from 'components/atoms/Heading/Heading';
+import Paragraph from 'components/atoms/Paragraph/Paragraph';
 
 const StyledWrapper = styled.div`
   padding: 25px 150px 25px 70px;
@@ -14,6 +14,15 @@ const StyledGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 85px;
+
+  @media (max-width: 1500px) {
+    grid-gap: 45px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (max-width: 1100px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const StyledPageHeader = styled.div`
@@ -34,29 +43,27 @@ const StyledParagraph = styled(Paragraph)`
 `;
 
 const GridTemplate = ({ children, pageType }) => (
-  <>
-    <UserPageTemplate pageType={pageType}>
-      <StyledWrapper>
-        <StyledPageHeader>
-          <Input search placeholder="Search " />
-          <StyledHeading big as="h1">
-            {pageType}s
-          </StyledHeading>
-          <StyledParagraph>6 notes</StyledParagraph>
-        </StyledPageHeader>
-        <StyledGrid>{children}</StyledGrid>
-      </StyledWrapper>
-    </UserPageTemplate>
-  </>
+  <UserPageTemplate pageType={pageType}>
+    <StyledWrapper>
+      <StyledPageHeader>
+        <Input search placeholder="Search" />
+        <StyledHeading big as="h1">
+          {pageType}
+        </StyledHeading>
+        <StyledParagraph>6 {pageType}</StyledParagraph>
+      </StyledPageHeader>
+      <StyledGrid>{children}</StyledGrid>
+    </StyledWrapper>
+  </UserPageTemplate>
 );
 
 GridTemplate.propTypes = {
-  children: PropType.arrayOf(PropType.object).isRequired,
-  pageType: PropType.oneOf(['notes', 'twitters', 'articles']),
+  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
 GridTemplate.defaultProps = {
-  pageType: 'note',
+  pageType: 'notes',
 };
 
 export default GridTemplate;
